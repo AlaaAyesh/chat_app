@@ -45,6 +45,20 @@ dependencies:
   emoji_picker_flutter: ^4.3.0
   shared_preferences: ^2.5.1
   permission_handler: ^11.3.1
+  image_picker: ^1.1.2
+  firebase_storage: ^12.4.2
+  record: ^5.2.0
+  path_provider: ^2.1.5
+  audioplayers: ^6.1.2
+  flutter_sound: ^9.23.1
+  file_picker: ^8.3.5
+  flutter_launcher_icons: ^0.13.1
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/chat.jpg"  # Ensure the correct file path
+
 
 dev_dependencies:
   flutter_test:

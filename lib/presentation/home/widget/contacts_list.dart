@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../data/repositories/contact_repository.dart';
 import '../../../data/services/service_locator.dart';
 import '../../../router/app_router.dart';
-import '../../chat/chat_message_screen.dart';
+import '../../chat/chat_screen.dart';
 
 class ContactsList extends StatelessWidget {
   final ContactRepository contactRepository;
@@ -40,7 +40,7 @@ class ContactsList extends StatelessWidget {
                         child: Text(contact["name"][0].toUpperCase()),
                       ),
                       title: Text(contact["name"]),
-                      onTap: () => getIt<AppRouter>().push(ChatMessageScreen(
+                      onTap: () => getIt<AppRouter>().push(ChatScreen(
                         receiverId: contact['id'],
                         receiverName: contact['name'],
                       )),

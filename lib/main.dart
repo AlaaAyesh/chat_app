@@ -1,5 +1,5 @@
+import 'package:chat_app/presentation/auth/login/login_screen.dart';
 import 'package:chat_app/presentation/home/home_screen.dart';
-import 'package:chat_app/presentation/screens/auth/login_screen.dart';
 import 'package:chat_app/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

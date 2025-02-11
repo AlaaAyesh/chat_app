@@ -63,7 +63,6 @@ class _SignupScreenState extends State<SignupScreen> {
     return null;
   }
 
-  // Email validation
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter your email address';
@@ -75,7 +74,6 @@ class _SignupScreenState extends State<SignupScreen> {
     return null;
   }
 
-  // Password validation
   String? _validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter a password';
@@ -86,7 +84,6 @@ class _SignupScreenState extends State<SignupScreen> {
     return null;
   }
 
-  // Phone validation
   String? _validatePhone(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter your phone number';
@@ -161,8 +158,8 @@ class _SignupScreenState extends State<SignupScreen> {
                       Text(
                         "Please fill in the details to continue",
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: Colors.grey,
-                            ),
+                          color: Colors.grey,
+                        ),
                       ),
                       const SizedBox(
                         height: 30,
@@ -251,8 +248,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                     .textTheme
                                     .bodyLarge
                                     ?.copyWith(
-                                        color: Theme.of(context).primaryColor,
-                                        fontWeight: FontWeight.bold),
+                                    color: Theme.of(context).primaryColor,
+                                    fontWeight: FontWeight.bold),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
                                     Navigator.pop(context);

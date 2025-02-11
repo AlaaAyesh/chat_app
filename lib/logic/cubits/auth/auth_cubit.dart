@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/repositories/auth_repository.dart';
+import '../../../data/repositories/chat_repository.dart';
 import '../../../data/services/service_locator.dart';
 import 'auth_state.dart';
 
@@ -26,6 +27,8 @@ class AuthCubit extends Cubit<AuthState> {
       if (user != null) {
         try {
           final userData = await _authRepository.getUserData(user.uid);
+          await getIt<ChatRepository>().updateOnlineStatus(user.uid, true);
+
           emit(state.copyWith(
             status: AuthStatus.authenticated,
             user: userData,
@@ -34,6 +37,7 @@ class AuthCubit extends Cubit<AuthState> {
           emit(state.copyWith(status: AuthStatus.error, error: e.toString()));
         }
       } else {
+
         emit(state.copyWith(
           status: AuthStatus.unauthenticated,
           user: null,
@@ -92,6 +96,11 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> signOut() async {
     try {
       print(getIt<AuthRepository>().currentUser?.uid ?? "asasa");
+      final userId = state.user?.uid; // Get the current user ID before signing out
+
+      if (userId != null) {
+        await getIt<ChatRepository>().updateOnlineStatus(userId, false);
+      }
       await _authRepository.singOut();
       print(getIt<AuthRepository>().currentUser?.uid ?? "asasa");
       emit(

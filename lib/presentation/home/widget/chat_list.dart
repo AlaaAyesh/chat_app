@@ -4,7 +4,7 @@ import '../../../data/repositories/auth_repository.dart';
 import '../../../data/repositories/chat_repository.dart';
 import '../../../data/services/service_locator.dart';
 import '../../../router/app_router.dart';
-import '../../chat/chat_message_screen.dart';
+import '../../chat/chat_screen.dart';
 import '../../widgets/chat_list_tile.dart';
 
 class ChatList extends StatelessWidget {
@@ -38,7 +38,7 @@ class ChatList extends StatelessWidget {
             return ChatListTile(
               chat: chat,
               currentUserId: currentUserId,
-              onTap: () => getIt<AppRouter>().push(ChatMessageScreen(
+              onTap: () => getIt<AppRouter>().push(ChatScreen(
                 receiverId: otherUserId,
                 receiverName: otherUserName,
               )),

@@ -1,4 +1,3 @@
-import 'package:chat_app/presentation/screens/auth/signup_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +10,7 @@ import '../../../logic/cubits/auth/auth_cubit.dart';
 import '../../../logic/cubits/auth/auth_state.dart';
 import '../../../router/app_router.dart';
 import '../../home/home_screen.dart';
+import '../signup/signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -47,7 +47,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return null;
   }
 
-  // Password validation
   String? _validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter a password';
@@ -119,9 +118,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         Text(
                           "Sign in to continue",
                           style:
-                              Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    color: Colors.grey,
-                                  ),
+                          Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: Colors.grey,
+                          ),
                         ),
                         const SizedBox(
                           height: 30,
@@ -166,14 +165,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           text: 'Login',
                           child: state.status == AuthStatus.loading
                               ? const CircularProgressIndicator(
-                                  color: Colors.white,
-                                )
+                            color: Colors.white,
+                          )
                               : const Text(
-                                  "Login",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
+                            "Login",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                         const SizedBox(
                           height: 20,
@@ -192,16 +191,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                       .textTheme
                                       .bodyLarge
                                       ?.copyWith(
-                                          color: Theme.of(context).primaryColor,
-                                          fontWeight: FontWeight.bold),
+                                      color: Theme.of(context).primaryColor,
+                                      fontWeight: FontWeight.bold),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //     builder: (context) => const SignupScreen(),
-                                      //   ),
-                                      // );
                                       getIt<AppRouter>()
                                           .push(const SignupScreen());
                                     },

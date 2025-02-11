@@ -3,7 +3,6 @@ import 'package:equatable/equatable.dart';
 
 import '../../../data/models/chat_message.dart';
 
-
 enum ChatStatus {
   inital,
   loading,

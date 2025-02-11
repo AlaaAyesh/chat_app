@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../data/services/service_locator.dart';
 import '../../../logic/cubits/auth/auth_cubit.dart';
 import '../../../router/app_router.dart';
-import '../../screens/auth/login_screen.dart';
+import '../../auth/login/login_screen.dart';
 class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeScreenAppBar({super.key});
 
