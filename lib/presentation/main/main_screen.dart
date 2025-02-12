@@ -15,7 +15,7 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 1; // Default to Home Screen
 
   final List<Widget> _screens = [
-    StatusScreen(), // Replace with StatusScreen()
+    StatusScreen(),
     const HomeScreen(),
     const SettingsScreen(),
   ];
@@ -28,28 +28,50 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final primaryColor = theme.primaryColor;
+    final isDarkMode = theme.brightness == Brightness.dark;
+
     return Scaffold(
       body: _screens[_selectedIndex], // Display selected screen
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        selectedItemColor: Theme.of(context).primaryColor, // Use theme color
-        unselectedItemColor: Theme.of(context).iconTheme.color?.withOpacity(0.6), // Dynamic unselected color
-        items: const [
+        selectedItemColor: primaryColor, // Use theme color
+        // unselectedItemColor: isDarkMode ? Colors.white70 : Colors.grey,
+        backgroundColor: theme.scaffoldBackgroundColor, // Match theme
+        elevation: 0,
+        type: BottomNavigationBarType.fixed,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        selectedIconTheme: IconThemeData(color: primaryColor),
+        // unselectedIconTheme: IconThemeData(color: isDarkMode ? Colors.white70 : Colors.grey),
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.auto_awesome_motion),
-            label: "Status",
+            icon: _buildIcon(Icons.add, 0, primaryColor),
+            label: "Posts",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
+            icon: _buildIcon(Icons.chat_bubble_outline, 1, primaryColor),
             label: "Chats",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
+            icon: _buildIcon(Icons.settings_suggest_outlined, 2, primaryColor),
             label: "Settings",
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildIcon(IconData icon, int index, Color color) {
+    return Container(
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: _selectedIndex == index ? color.withOpacity(0.2) : Colors.transparent,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Icon(icon),
     );
   }
 }

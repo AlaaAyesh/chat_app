@@ -44,6 +44,7 @@ class ThemeCubit extends Cubit<ThemeData> {
     await prefs.setBool(_themeKey, isDark);
 
     emit(ThemeData(
+
       primaryColor: state.primaryColor,
       brightness: isDark ? Brightness.dark : Brightness.light,
       iconTheme: IconThemeData(color: state.primaryColor),
