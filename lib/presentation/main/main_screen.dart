@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../home/home_screen.dart';
 import '../setting/settings_screen.dart';
+import '../status/status_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -14,7 +15,7 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 1; // Default to Home Screen
 
   final List<Widget> _screens = [
-    PlaceholderScreen("Status Screen"), // Replace with StatusScreen()
+    StatusScreen(), // Replace with StatusScreen()
     const HomeScreen(),
     const SettingsScreen(),
   ];
