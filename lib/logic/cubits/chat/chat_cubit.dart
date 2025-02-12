@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,7 +25,11 @@ class ChatCubit extends Cubit<ChatState> {
     required ChatRepository chatRepository,
     required this.currentUserId,
   })  : _chatRepository = chatRepository,
-        super(const ChatState());
+        super(const ChatState()) {
+    loadBlockedUsers(); // Load blocked users at startup
+  }
+
+
 
   void enterChat(String receiverId) async {
     _isInChat = true;
@@ -202,9 +207,10 @@ class ChatCubit extends Cubit<ChatState> {
   Future<void> blockUser(String userId) async {
     try {
       await _chatRepository.blockUser(currentUserId, userId);
+      loadBlockedUsers(); // Refresh blocked users list
     } catch (e) {
       emit(
-        state.copyWith(error: 'failed to block user $e'),
+        state.copyWith(error: 'Failed to block user: $e'),
       );
     }
   }
@@ -212,12 +218,42 @@ class ChatCubit extends Cubit<ChatState> {
   Future<void> unBlockUser(String userId) async {
     try {
       await _chatRepository.unBlockUser(currentUserId, userId);
+      loadBlockedUsers(); // Refresh blocked users list
     } catch (e) {
       emit(
-        state.copyWith(error: 'failed to unblock user $e'),
+        state.copyWith(error: 'Failed to unblock user: $e'),
       );
     }
   }
+
+
+  Future<void> loadBlockedUsers() async {
+    final userId = FirebaseAuth.instance.currentUser!.uid;
+    final userDoc = await FirebaseFirestore.instance.collection('users').doc(userId).get();
+
+    if (userDoc.exists && userDoc.data() != null) {
+      final blockedUserIds = List<String>.from(userDoc.data()!['blockedUsers'] ?? []);
+
+      // Fetch usernames for blocked users
+      List<Map<String, String>> blockedUsers = [];
+      for (String blockedUserId in blockedUserIds) {
+        final blockedUserDoc = await FirebaseFirestore.instance.collection('users').doc(blockedUserId).get();
+        if (blockedUserDoc.exists) {
+          blockedUsers.add({
+            'id': blockedUserId,
+            'fullName': blockedUserDoc.data()?['fullName'] ?? 'Unknown'
+          });
+        }
+      }
+
+      emit(state.copyWith(blockedUsers: blockedUsers));
+    } else {
+      emit(state.copyWith(blockedUsers: []));
+    }
+  }
+
+
+
 
   Future<void> _markMessagesAsRead(String chatRoomId) async {
     try {

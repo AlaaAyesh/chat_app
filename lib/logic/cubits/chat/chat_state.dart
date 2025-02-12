@@ -23,6 +23,7 @@ class ChatState extends Equatable {
   final bool isLoadingMore;
   final bool isUserBlocked;
   final bool amIBlocked;
+  final List<Map<String, String>> blockedUsers; // Store both userId and name
 
   const ChatState({
     this.status = ChatStatus.inital,
@@ -37,6 +38,8 @@ class ChatState extends Equatable {
     this.isLoadingMore = false,
     this.isUserBlocked = false,
     this.amIBlocked = false,
+    this.blockedUsers = const [], // ✅ Initialize with empty list
+
   });
 
   ChatState copyWith({
@@ -52,6 +55,8 @@ class ChatState extends Equatable {
     bool? isLoadingMore,
     bool? isUserBlocked,
     bool? amIBlocked,
+    List<Map<String, String>>? blockedUsers,
+
   }) {
     return ChatState(
       status: status ?? this.status,
@@ -66,6 +71,8 @@ class ChatState extends Equatable {
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
       isUserBlocked: isUserBlocked ?? this.isUserBlocked,
       amIBlocked: amIBlocked ?? this.amIBlocked,
+      blockedUsers: blockedUsers ?? List.from(this.blockedUsers), // ✅ Ensures a new list reference
+
     );
   }
 
@@ -84,6 +91,8 @@ class ChatState extends Equatable {
       isLoadingMore,
       isUserBlocked,
       amIBlocked,
+      blockedUsers, // ✅ Add blockedUsers to Equatable props
+
     ];
   }
 }

@@ -41,7 +41,8 @@ class ChatList extends StatelessWidget {
               onTap: () => getIt<AppRouter>().push(ChatScreen(
                 receiverId: otherUserId,
                 receiverName: otherUserName,
-              )),
+              ),
+              ),
             );
           },
         );

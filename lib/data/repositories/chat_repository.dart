@@ -11,6 +11,21 @@ class ChatRepository extends BaseRepository {
   CollectionReference getChatRoomMessages(String chatRoomId) {
     return _chatRooms.doc(chatRoomId).collection("messages");
   }
+  Stream<List<String>> getBlockedUsers(String userId) {
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .snapshots()
+        .map((snapshot) {
+      final data = snapshot.data();
+      if (data != null && data.containsKey('blockedUsers')) {
+        return List<String>.from(data['blockedUsers']);
+      }
+      return [];
+    });
+  }
+
+
 
   Future<ChatRoomModel> getOrCreateChatRoom(
       String currentUserId, String otherUserId) async {
