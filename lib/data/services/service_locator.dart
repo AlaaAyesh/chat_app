@@ -24,7 +24,8 @@ Future<void> setupServiceLocator() async {
 
   // Register core services
   getIt.registerLazySingleton(() => AppRouter());
-  getIt.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);
+  getIt.registerLazySingleton<FirebaseFirestore>(
+      () => FirebaseFirestore.instance);
   getIt.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
 
   // Register repositories
@@ -37,16 +38,14 @@ Future<void> setupServiceLocator() async {
 
   // Register AuthCubit using the correct instance of AuthRepository
   getIt.registerLazySingleton(
-        () => AuthCubit(authRepository: getIt<AuthRepository>()),
+    () => AuthCubit(authRepository: getIt<AuthRepository>()),
   );
 
   // Register ChatCubit only if the user is authenticated
-  if (getIt<FirebaseAuth>().currentUser != null) {
-    getIt.registerFactory(
-          () => ChatCubit(
-        chatRepository: getIt<ChatRepository>(),
-        currentUserId: getIt<FirebaseAuth>().currentUser!.uid,
-      ),
-    );
-  }
+  getIt.registerFactory(
+    () => ChatCubit(
+      chatRepository: ChatRepository(),
+      currentUserId: getIt<FirebaseAuth>().currentUser!.uid,
+    ),
+  );
 }

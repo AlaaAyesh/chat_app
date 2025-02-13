@@ -1,3 +1,4 @@
+import 'package:chat_app/presentation/main/main_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -86,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
         listener: (context, state) {
           if (state.status == AuthStatus.authenticated) {
             getIt<AppRouter>().pushAndRemoveUntil(
-              const HomeScreen(),
+              const MainScreen(),
             );
           } else if (state.status == AuthStatus.error && state.error != null) {
             UiUtils.showSnackBar(context, message: state.error!);
@@ -169,9 +170,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           )
                               : const Text(
                             "Login",
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
+                            // style: TextStyle(
+                            //   color: Colors.white,
+                            // ),
                           ),
                         ),
                         const SizedBox(
