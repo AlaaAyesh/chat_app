@@ -20,5 +20,8 @@ A **modern and scalable messaging application** built with **Flutter** and **Fir
 - **GetIt** - Service locator for dependency injection  
 - **Flutter Router** - Navigation management  
 
-## 📂 Project Structure  
+
+## 🎥 
+https://github.com/user-attachments/assets/5ac2287d-ecd7-4fd7-85cb-ee6ccb1f521a
+
 
